@@ -5,55 +5,7 @@
 ## Content
 - [Architecture](#architecture)
 - [Better Understanding of Logos Stack: Logos vs Ethereum](#better-understanding-of-logos-stack-logos-vs-ethereum)
-- [Chapter 3](#chapter-3)
-
-
-
-
-----
-
-Testnet deployment (start with local sequencer)
-
-what is local sequencer ?
-
-A local sequencer is a copy of the LEZ transaction-ordering service running on your own machine instead of a shared/remote testnet, so you can test transactions and proofs without depending on network infra.
-
-----
-
-> Logos Blockchain is the L1, and LEZ is a "Sovereign Zone" that's architecturally similar to an L2 (has its own sequencer, its own execution) but settles directly onto that same native L1 rather than being a separate chain bridged to it like a typical Ethereum L2.
-
-
-
----
-
-Yes, the NPK/ISK keypair is a specialized form of a public/private keypair designed specifically for private (shielded) cryptocurrency transactions.
-
-* **ISK (Incoming Secret Key) = Private Key:** Kept secret by the account owner to decrypt incoming messages, discover incoming funds, and generate spend proofs.
-* **NPK (Nullifier Public Key) = Public Key:** Shared publicly on-chain to uniquely identify the shielded account and allow others to send assets without revealing real identity or transaction history.
-
-
-
-- todo: draw Logos stack architecture with these details:
-
-
-Logos Core loads each module as a separate process communicating via IPC,
-
-
-RISC Zero (`cargo-risczero`) is a zero-knowledge virtual machine (zkVM) toolchain that lets you compile normal Rust code into a program that can generate cryptographic proofs of correct execution; for LP-0008 it's needed because LEZ uses RISC Zero to produce the ZK proofs that let the execution zone settle private/shielded state back onto the Logos Blockchain.
-
-
-
-
-```bash
-cd /home/gok/logos-repos/logos-execution-zone
-
-# Build in dev mode (skip ZK proofs, limit to 6 parallel jobs)
-RISC0_DEV_MODE=1 cargo build -j 6
-```
-
-`RISC0_DEV_MODE=1` disables actual ZK proof generation and uses a fast mock/skip mode instead, so builds and test runs are much faster during development (set it to `0` for real proofs).
-
-`rzup` is the RISC Zero toolchain installer/version-manager (like `rustup` but for RISC Zero) — it installs and manages `cargo-risczero`, the RISC Zero VM, and prover components.
+- [Some Key Terms](#some-key-terms)
 
 
 ## Architecture
@@ -94,3 +46,71 @@ Think of **Logos as a complete decentralized operating stack**, rather than just
 | **Logos Node**                 | A headless Logos runtime running modules without the graphical Basecamp interface, suitable for servers or remote machines. ([docs.logos.co][1])                                                                  | **Running an Ethereum node/server without MetaMask UI**                                    |
 
 [⬆ Back to top](#content)
+
+
+
+## Some Key Terms
+
+### Example Agent Card  
+
+```json
+{
+  "name": "logos-agent-example",
+  "description": "Autonomous agent with wallet, storage, messaging skills on Logos",
+  "url": "logos-messaging://npk-abc123...",
+  "version": "0.1.0",
+  "skills": [
+    {
+      "id": "wallet.balance",
+      "name": "Check Wallet Balance",
+      "description": "Returns the shielded LEZ balance for this agent"
+    },
+    {
+      "id": "meta.status",
+      "name": "Agent Status",
+      "description": "Returns current agent state and uptime"
+    }
+  ]
+}
+```
+
+
+### Local sequencer 
+
+> Testnet deployment with local sequencer
+
+A local sequencer is a copy of the LEZ transaction-ordering service running on your own machine instead of a shared/remote testnet, so you can test transactions and proofs without depending on network infra.
+
+
+Logos Blockchain is the L1, and LEZ is a "Sovereign Zone" that's architecturally similar to an L2 (has its own sequencer, its own execution) but settles directly onto that same native L1 rather than being a separate chain bridged to it like a typical Ethereum L2.
+
+
+
+### NPK/ISK keypair
+The NPK/ISK keypair is a specialized form of a public/private keypair designed specifically for private (shielded) cryptocurrency transactions.
+
+* **ISK (Incoming Secret Key) = Private Key:** Kept secret by the account owner to decrypt incoming messages, discover incoming funds, and generate spend proofs.
+* **NPK (Nullifier Public Key) = Public Key:** Shared publicly on-chain to uniquely identify the shielded account and allow others to send assets without revealing real identity or transaction history.
+
+
+### RISC Zero
+
+RISC Zero (`cargo-risczero`) is a zero-knowledge virtual machine (zkVM) toolchain that lets you compile normal Rust code into a program that can generate cryptographic proofs of correct execution; for LP-0008 it's needed because LEZ uses RISC Zero to produce the ZK proofs that let the execution zone settle private/shielded state back onto the Logos Blockchain.
+
+
+<p align="center"><img src="./images/risc0.jpg" alt=">> image <<": ></p>
+
+
+```bash
+cd /home/gok/logos-repos/logos-execution-zone
+
+# Build in dev mode (skip ZK proofs, limit to 6 parallel jobs)
+RISC0_DEV_MODE=1 cargo build -j 6
+```
+
+`RISC0_DEV_MODE=1` disables actual ZK proof generation and uses a fast mock/skip mode instead, so builds and test runs are much faster during development (set it to `0` for real proofs).
+
+`rzup` is the RISC Zero toolchain installer/version-manager (like `rustup` but for RISC Zero) — it installs and manages `cargo-risczero`, the RISC Zero VM, and prover components.
+
+[⬆ Back to top](#content)
+
