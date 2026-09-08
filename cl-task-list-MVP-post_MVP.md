@@ -3,22 +3,22 @@
 ## Phase 1: Foundation (MVP)
 
 ### 1.1 Environment Setup
-- [ ] Check existing Rust/toolchain setup on WSL2
-- [ ] Install RISC Zero toolchain (`rzup`)
-- [ ] Install Nix package manager
-- [ ] Install Docker (if not present)
-- [ ] Clone `logos-execution-zone` repo
-- [ ] Clone `logos-modules` / `logos-co` repos
-- [ ] Clone `lez-programs` repo
-- [ ] Verify local LEZ sequencer builds and runs (`RISC0_DEV_MODE=1`)
-- [ ] Set up 16 GB swap file for future `RISC0_DEV_MODE=0`
+- [x] Check existing Rust/toolchain setup on WSL2
+- [x] Install RISC Zero toolchain (`rzup`)
+- [x] Install Nix package manager
+- [x] Install Docker (if not present)
+- [x] Clone `logos-execution-zone` repo
+- [x] Clone `logos-modules` / `logos-co` repos
+- [x] Clone `lez-programs` repo
+- [x] Verify local LEZ sequencer builds and runs (`RISC0_DEV_MODE=1`)
+- [x] Set up 16 GB swap file for future `RISC0_DEV_MODE=0`
 
 ### 1.2 Repo Exploration & Learning
-- [ ] Study existing Logos Core module structure (wallet module, chat module)
-- [ ] Understand Qt Remote Objects ↔ C ABI bridge pattern
-- [ ] Understand `logos-module-builder` Nix tooling
-- [ ] Identify the exact APIs for: wallet, storage, messaging modules
-- [ ] Document findings in a research notes artifact
+- [x] Study existing Logos Core module structure (wallet module, chat module)
+- [x] Understand Qt Remote Objects ↔ C ABI bridge pattern
+- [x] Understand `logos-module-builder` Nix tooling
+- [x] Identify the exact APIs for: wallet, storage, messaging modules
+- [x] Document findings in a research notes artifact
 
 ### 1.3 Module Skeleton
 - [ ] Create agent module project (Rust + C ABI)
