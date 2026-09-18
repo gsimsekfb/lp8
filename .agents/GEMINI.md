@@ -1,0 +1,1 @@
+- after every task e.g. 1.3 Module Skeleton, check the original LP-0008 spec md to see if there is a need to update our impl. plans

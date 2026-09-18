@@ -21,16 +21,17 @@
 - [x] Document findings in a research notes artifact
 
 ### 1.3 Module Skeleton
-- [ ] Create agent module project (Rust + C ABI)
-- [ ] Implement minimal Qt Remote Objects interface
-- [ ] Module loads into Logos Core without errors
-- [ ] First commit: bare skeleton
+- [x] Create agent module project (C++ universal authoring model)
+- [x] Auto-generated Qt plugin glue via logos-module-builder
+- [x] `nix build` → `agent_module_plugin.so` (2.8 MB)
+- [x] First commit: bare skeleton
 
 ### 1.4 Agent Identity
-- [ ] Generate NPK/ISK keypair on first run
-- [ ] Derive Logos Messaging address from identity
-- [ ] Persist keys securely
-- [ ] Second commit: identity generation
+- [x] Generate Ed25519 keypair on first run (MVP placeholder for LEZ NPK/ISK)
+- [x] Derive messaging address from public key
+- [x] Persist keys to `agent_identity.json` via `instancePersistencePath()`
+- [x] `getIdentity()` API method
+- [x] Second commit: identity generation
 
 ### 1.5 Owner Channel (basic)
 - [ ] Create dedicated Logos Messaging topic
