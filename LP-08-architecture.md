@@ -10,20 +10,12 @@
 
 ## Architecture
 
-
-<p align="center"><img src="./images/architecture_cld-ops-4.6.jpg" alt=">> image <<": ></p>
-
-### Another View:
-
-<p align="center"><img src="./images/architecture_cld.png" alt=">> image <<": ></p>
+<p align="center"><img src="./images/architecture_gem.png" alt=">> image <<": ></p>
 
 Only the owner and the Logos app sit on the owner's laptop; everything else — the agent module, wallet, storage, messaging, and other agents — runs remotely, either on the agent's dedicated node or spread across the distributed Logos network.
 
 ### Another View:
 <p align="center"><img src="./images/architecture_gpt.png" alt=">> image <<": ></p>
-
-### Another View:
-<p align="center"><img src="./images/architecture_gem.png" alt=">> image <<": ></p>
 
 
 [⬆ Back to top](#content)

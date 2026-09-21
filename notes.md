@@ -5,14 +5,23 @@
 ### build
 
 ```
-nix build — builds the module in an isolated Nix sandbox. No shell needed. Just needs nix on PATH.
-nix develop — enters a dev shell with tools like lm and logoscore for testing.
+// builds the module in an isolated Nix sandbox. No shell needed
+nix build
+
+// enters a dev shell with tools like lm and logoscore for testing.
+nix develop 
 ```
 
 
 ```
 cd /home/gok/logos-lp-8/logos-agent-module
 nix build --extra-experimental-features 'nix-command flakes'
+```
+
+Verify new code changes / fns:
+```
+lm ./result/lib/agent_module_plugin.so
+    // double check result's timestamp, it might be from an old build 
 ```
 
 Verify build:
