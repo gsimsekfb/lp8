@@ -123,10 +123,29 @@ This can replace our Ed25519 placeholder in Phase 2 (wallet skills) without need
 
 **Verify new methods are exported** — enter the dev shell and run `lm`:
 
+
 ```bash
-cd /home/gok/logos-lp-8/logos-agent-module
+cd ~/logos-lp-8/logos-agent-module
+
+# 1. Build — compiles the module in Nix's isolated sandbox
+nix build --extra-experimental-features 'nix-command flakes'
+    # ✅ Success = exit code 0, `result/` symlink created
+    # ❌ Failure = missing deps, Nix not installed properly
+
+# 2. Enter dev shell — gives you lm + logoscore binaries
 nix develop --extra-experimental-features 'nix-command flakes'
+
+# 3. lm — inspects the plugin, lists all methods/events
 lm ./result/lib/agent_module_plugin.so
+    # ✅ Should show setupOwnerChannel, sendToOwner, getOwnerChannelStatus etc.
+
+# 4. logoscore — actually RUNS the module and calls methods
+#    (This failed on Ubuntu 22 due to GLIBC 2.38 mismatch — should work on 24)
+logoscore -m ./result/lib -l agent_module -c "agent_module.getStatus()"
+    # ✅ Should return JSON: {"initialized": false, "identity_loaded": false, ...}
+
+logoscore -m ./result/lib -l agent_module -c "agent_module.listSkills()"
+    # ✅ Should return: [{"name": "echo", ...}]
 ```
 
 You should see `setupOwnerChannel`, `sendToOwner`, and `getOwnerChannelStatus` in the method list alongside the existing ones.
@@ -134,3 +153,14 @@ You should see `setupOwnerChannel`, `sendToOwner`, and `getOwnerChannelStatus` i
 **What can't be tested yet:**
 - Actual messaging (needs Logos Core running with both `agent_module` + `chat_module` loaded)
 - The `logoscore` CLI (GLIBC 2.38 mismatch on your machine)
+
+
+| Step | What it proves | Ubuntu 22 | Ubuntu 24 |
+|---|---|---|---|
+| `nix build` | Code compiles | ✅ | ✅ |
+| `lm` | Methods exported correctly | ✅ | ✅ |
+| `logoscore` | Module actually runs | ❌ GLIBC | ✅ should work |
+
+The key reason for Ubuntu 24: `logoscore` needs GLIBC ≥ 2.38, Ubuntu 24 ships 2.39.
+```
+

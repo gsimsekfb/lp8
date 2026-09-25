@@ -34,10 +34,12 @@
 - [x] Second commit: identity generation
 
 ### 1.5 Owner Channel (basic)
-- [ ] Create dedicated Logos Messaging topic
-- [ ] Send/receive plaintext messages (E2E encrypted by Messaging layer)
-- [ ] Owner can send a command, agent echoes back
-- [ ] Third commit: basic owner channel
+- [x] `setupOwnerChannel(ownerIntroBundle)` — creates E2E encrypted conversation via `LpClient` → `chat_module`
+- [x] `sendToOwner(message)` — sends via Logos Messaging, falls back to event emission
+- [x] `getOwnerChannelStatus()` — channel connection status
+- [x] Incoming message subscription → routes through `processOwnerCommand()` → responds
+- [x] Direct RPC via `processOwnerCommand()` still works as fallback
+- [x] Third commit: basic owner channel
 
 ### 1.6 First Skills
 - [ ] `meta.status()` — return agent state
