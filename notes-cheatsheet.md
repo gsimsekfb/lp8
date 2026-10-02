@@ -3,8 +3,6 @@
 # CheatSheet
 
 ### build
-
-
 ```
 cd ~/logos-lp-8/logos-agent-module
 
@@ -24,14 +22,21 @@ nix develop --extra-experimental-features 'nix-command flakes'
 
 # 3. lm — inspects the plugin, lists all methods/events
 lm ./result/lib/agent_module_plugin.so
-    # ✅ Should show setupOwnerChannel, sendToOwner etc.
+    # should show setupOwnerChannel, sendToOwner etc.
+
+echo 'alias lm="$LOGOS_MODULE_ROOT/bin/lm"' >> ~/.bashrc
+    # need to use this lm
 
 # 4. logoscore — actually RUNS the module and calls methods
-#    (This failed on Ubuntu 22 due to GLIBC 2.38 mismatch — should work on 24)
-logoscore -m ./result/lib -l agent_module -c "agent_module.getStatus()"
-    # ✅ Should return JSON: {"initialized": false, ...}
 
-logoscore -m ./result/lib -l agent_module -c "agent_module.listSkills()"
+# !! use same terminal !!
+# Start daemon
+logoscore daemon -m /tmp/logoscore-modules & sleep 3
+# Load & call
+logoscore load-module agent_module
+logoscore call agent_module getStatus
+    # ✅ Should return JSON: {"initialized": false, ...}
+logoscore call agent_module listSkills
     # ✅ Should return: [{"name": "echo", ...}]
 ```
 
@@ -66,3 +71,31 @@ impure
     # still in, try exit again
 ```
 
+
+### logoscore setup & debug
+
+```
+# logoscore (needs manifest.json + subdirectory structure)
+
+# 1. Prepare module dir
+mkdir -p /tmp/logoscore-modules/agent_module
+cp ./result/lib/agent_module_plugin.so /tmp/logoscore-modules/agent_module/
+cp ~/lp8/logos-agent-module/manifest.json /tmp/logoscore-modules/agent_module/
+
+# !! use same terminal !!
+
+# 2. Start daemon
+logoscore daemon -m /tmp/logoscore-modules & sleep 3
+
+# 3. Load & call
+logoscore load-module agent_module
+logoscore call agent_module getStatus
+logoscore call agent_module listSkills
+
+# 4. Stop
+logoscore stop
+
+# 5. Reset
+rm -rf ~/.logoscore
+    # Then restart the daemon, and try again
+```
