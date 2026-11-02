@@ -2,8 +2,9 @@
 
 # CheatSheet
 
-### build
-```
+## build
+
+```sh
 cd ~/logos-lp-8/logos-agent-module
 
 # 1. Build — compiles the module in Nix's isolated sandbox
@@ -13,9 +14,16 @@ nix build --extra-experimental-features 'nix-command flakes'
 
 ls -l result
     # check result's timestamp, it might be from an old build 
+
+
+# Incr. build / C++ syntax check
+nix develop --extra-experimental-features 'nix-command flakes'
+    # Enter dev shell — to access lm + logoscore binaries
+cmake -B build -G Ninja -Wno-dev     # once
+cmake --build build                  # each time you change code
 ```
 
-### Check new/all methods respects the code changes
+## check agent_module methods respects the code changes
 ```
 # 2. Enter dev shell — to access lm + logoscore binaries
 nix develop --extra-experimental-features 'nix-command flakes'
@@ -28,16 +36,7 @@ echo 'alias lm="$LOGOS_MODULE_ROOT/bin/lm"' >> ~/.bashrc
     # need to use this lm
 
 # 4. logoscore — actually RUNS the module and calls methods
-
-# !! use same terminal !!
-# Start daemon
-logoscore daemon -m /tmp/logoscore-modules & sleep 3
-# Load & call
-logoscore load-module agent_module
-logoscore call agent_module getStatus
-    # ✅ Should return JSON: {"initialized": false, ...}
-logoscore call agent_module listSkills
-    # ✅ Should return: [{"name": "echo", ...}]
+    see logoscore-*.md
 ```
 
 ### Verify build - more detailed:
@@ -69,33 +68,4 @@ echo $IN_NIX_SHELL
 echo $IN_NIX_SHELL
 impure
     # still in, try exit again
-```
-
-
-### logoscore setup & debug
-
-```
-# logoscore (needs manifest.json + subdirectory structure)
-
-# 1. Prepare module dir
-mkdir -p /tmp/logoscore-modules/agent_module
-cp ./result/lib/agent_module_plugin.so /tmp/logoscore-modules/agent_module/
-cp ~/lp8/logos-agent-module/manifest.json /tmp/logoscore-modules/agent_module/
-
-# !! use same terminal !!
-
-# 2. Start daemon
-logoscore daemon -m /tmp/logoscore-modules & sleep 3
-
-# 3. Load & call
-logoscore load-module agent_module
-logoscore call agent_module getStatus
-logoscore call agent_module listSkills
-
-# 4. Stop
-logoscore stop
-
-# 5. Reset
-rm -rf ~/.logoscore
-    # Then restart the daemon, and try again
 ```

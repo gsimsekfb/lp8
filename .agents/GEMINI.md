@@ -1,3 +1,4 @@
 - when you are planning any next task e.g. 1.3 Module Skeleton, check the original LP-0008 spec and all other md files to see if there is a need to update our impl. plans
 - always make sure the build is successfull, always report if build timeouts and you give up building.
 - always consider to show the possible manual actions to test the code/other changes before commit.
+- for simple questions, try your best for minimal answer, one sentence ideally.
