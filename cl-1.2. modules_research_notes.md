@@ -11,6 +11,8 @@ my-module/
 ├── flake.nix               # Nix build — calls mkLogosModule{}
 ├── flake.lock
 ├── metadata.json           # Module identity, deps, packaging info
+|                           # used at build time by logos-module-builder 
+|                           # (via flake.nix and LogosModule.cmake)
 ├── src/
 │   ├── my_module_interface.h    # Pure virtual interface (optional, for complex modules)
 │   ├── my_module_plugin.h       # Qt plugin class header

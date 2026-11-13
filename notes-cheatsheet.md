@@ -2,6 +2,13 @@
 
 # CheatSheet
 
+
+## wsl
+
+```sh
+wsl -d Ubuntu-24.04
+```
+
 ## build
 
 ```sh
@@ -29,6 +36,11 @@ cmake --build build                  # each time you change code
 nix develop --extra-experimental-features 'nix-command flakes'
 
 # 3. lm — inspects the plugin, lists all methods/events
+#    More on lm: Logos Module inspector - provided by logos-module-builder 
+#    in the Nix dev shell - loads a compiled Logos plugin .so file and 
+#    inspects/lists its metadata and methods without needing to run the full 
+#    logoscore daemon.
+#
 lm ./result/lib/agent_module_plugin.so
     # should show setupOwnerChannel, sendToOwner etc.
 
