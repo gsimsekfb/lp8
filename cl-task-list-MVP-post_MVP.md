@@ -42,14 +42,20 @@
 - [x] Third commit: basic owner channel
 
 ### 1.6 First Skills
-- [ ] `meta.status()` — return agent state
-- [ ] `wallet.balance()` — query shielded balance
-- [ ] Fourth commit: first skills
+- [x] `meta.status()` — return agent state
+- [x] `wallet.balance()` — query shielded balance
+- [x] Fourth commit: first skills
+
+### 1.7 CI & Testing (MVP)
+- [x] Stage 1: Nix build workflow (`.github/workflows/build.yml`)
+- [x] Stage 2: Plugin introspection smoke test (`lm`)
+- [ ] Stage 3: Unit tests
+- [ ] Stage 4: `logoscore` runtime smoke tests
 
 ---
 
 ## Phase 2: Expand Skills (post-MVP)
-- [ ] Skill trait/interface + registry
+- [x] Skill trait/interface + registry (basic `SkillDescriptor` + handler map implemented in 1.6)
 - [ ] Storage skills
 - [ ] Messaging skills
 - [ ] Full blockchain/wallet skills
