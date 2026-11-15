@@ -31,7 +31,8 @@ cmake --build build                  # each time you change code
 ```
 
 ## check agent_module methods respects the code changes
-```
+
+```sh
 # 2. Enter dev shell — to access lm + logoscore binaries
 nix develop --extra-experimental-features 'nix-command flakes'
 
@@ -40,11 +41,13 @@ nix develop --extra-experimental-features 'nix-command flakes'
 #    in the Nix dev shell - loads a compiled Logos plugin .so file and 
 #    inspects/lists its metadata and methods without needing to run the full 
 #    logoscore daemon.
+# lm comes from the Nix dev env ($LOGOS_MODULE_ROOT/bin/lm)
+# see "nix develop ..." cmd above.
 #
 lm ./result/lib/agent_module_plugin.so
     # should show setupOwnerChannel, sendToOwner etc.
 
-echo 'alias lm="$LOGOS_MODULE_ROOT/bin/lm"' >> ~/.bashrc
+alias lm='$LOGOS_MODULE_ROOT/bin/lm' >> ~/.bashrc
     # need to use this lm
 
 # 4. logoscore — actually RUNS the module and calls methods
@@ -53,8 +56,8 @@ echo 'alias lm="$LOGOS_MODULE_ROOT/bin/lm"' >> ~/.bashrc
 
 ### Verify build - more detailed:
 
-```
-// double check result's timestamp, it might be from an old build 
+```sh
+# double check result's timestamp, it might be from an old build 
 ls -l result
     lrwxrwxrwx 1 gok gok 69 Sep 18 12:10 result -> /nix/store/imlcc0r2557v10yjbb03c21r0gmm7dc0-logos-agent_module-modul
 
@@ -71,7 +74,7 @@ ls -lh result/lib/agent_module_plugin.so
 
 
 ###  exit NIX shell
-```
+```sh
 exit 
 
 echo $IN_NIX_SHELL

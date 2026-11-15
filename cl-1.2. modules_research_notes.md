@@ -8,7 +8,7 @@ Every Logos Core module follows the **exact same pattern**. Here's the blueprint
 ```
 my-module/
 ├── CMakeLists.txt          # Uses logos_module() CMake macro
-├── flake.nix               # Nix build — calls mkLogosModule{}
+├── flake.nix               # Nix eq. of Cargo.toml — calls mkLogosModule{}
 ├── flake.lock
 ├── metadata.json           # Module identity, deps, packaging info
 |                           # used at build time by logos-module-builder 
