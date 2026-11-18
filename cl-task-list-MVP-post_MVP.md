@@ -47,10 +47,10 @@
 - [x] Fourth commit: first skills
 
 ### 1.7 CI & Testing (MVP)
-- [x] Stage 1: Nix build workflow (`.github/workflows/build.yml`)
+- [x] Stage 1: Nix build workflow (`.github/workflows/e2e.yml`)
 - [x] Stage 2: Plugin introspection smoke test (`lm`)
 - [ ] Stage 3: Unit tests
-- [ ] Stage 4: `logoscore` runtime smoke tests
+- [x] Stage 4: `logoscore` runtime smoke tests
 
 ---
 
