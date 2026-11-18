@@ -1,4 +1,7 @@
 
+Download `logoscore`:  
+https://github.com/logos-co/logos-logoscore-cli/releases/download/v0.2.2/logoscore-x86_64-linux.tar.gz
+
 ### Human vs Machine Readable Calls
 ```
 logoscore --human call agent_module listSkills | jq

@@ -52,6 +52,7 @@ flowchart LR
 - Targets: `toHex`, identity round-trip + corrupt/missing file, `processOwnerCommand` routing, `executeSkill` (known/unknown skill, `wallet.balance` "unavailable" fallback).
 
 ### Stage 4 — Runtime tests with `logoscore` ⭐ MVP (stretch)
+> Status: `tests/smoke_logoscore.sh` + "Install logoscore" (release v0.2.2 tarball → `logoscore-x86_64.AppImage`) / "Runtime smoke test" steps added to `build.yml` — not yet run/verified.
 - Script `tests/smoke_logoscore.sh` (turn the 1.6 manual test into a committed script): start `logoscore daemon -m <tmp>/modules`, `load-module agent_module`, call `listSkills`, `getStatus`, `executeSkill meta.status|wallet.balance|echo|nope`, assert JSON with `jq`, check `meta.status` returns < ~5s (regression for the 20s-timeout/segfault bug).
 - ⚠️ Need `logoscore` reproducibly in CI (currently from `~/.local/bin`) → ideally a flake input / devShell package.
 
